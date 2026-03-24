@@ -1,0 +1,22 @@
+[
+  {
+    "email": "kevin@otter.com",
+    "password": "1234"
+  },
+  {
+    "email": "admin@otter.com",
+    "password": "1234"
+  },
+  {
+    "email": "jona@jona.com",
+    "password": "123"
+  },
+  {
+    "email": "kevin1@otter.com",
+    "password": "1234"
+  },
+  {
+    "email": "kevin23@otter.com",
+    "password": "1234"
+  }
+]

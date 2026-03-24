@@ -15,7 +15,7 @@
 	<!-- meta character set -->
 	<meta charset="UTF-8">
 	<!-- Site Title -->
-	<title>Karma Shop</title>
+	<title>Otter Kicks</title>
 
 	<!--
 		CSS
@@ -97,10 +97,10 @@
 		<div class="container">
 			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
 				<div class="col-first">
-					<h1>Login/Register</h1>
+					<h1>Login</h1>
 					<nav class="d-flex align-items-center">
 						<a href="index.html">Inicio<span class="lnr lnr-arrow-right"></span></a>
-						<a href="category.html">Login/Register</a>
+						<a href="category.html">Login</a>
 					</nav>
 				</div>
 			</div>
@@ -109,46 +109,89 @@
 	<!-- End Banner Area -->
 
 	<!--================Login Box Area =================-->
-	<section class="login_box_area section_gap">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-6">
-					<div class="login_box_img">
-						<img class="img-fluid" src="img/login.jpg" alt="">
-						<div class="hover">
-							<h4>Nuevo en el Sitio?</h4>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat eligendi illum blanditiis?</p>
-							<a class="primary-btn" href="registration.html">Crea una cuenta</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-6">
-					<div class="login_form_inner">
-						<h3>Inicia Sesión para Entrar</h3>
-						<form class="row login_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
-							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="name" name="name" placeholder="Usuario" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
-							</div>
-							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="name" name="name" placeholder="Contraseña" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
-							</div>
-							<div class="col-md-12 form-group">
-								<div class="creat_account">
-									<input type="checkbox" id="f-option2" name="selector">
-									<label for="f-option2">Mantener Sesión Abierta</label>
-								</div>
-							</div>
-							<div class="col-md-12 form-group">
-								<button type="submit" value="submit" class="primary-btn">Iniciar Sesión</button>
-								<a href="#">Olvidaste tu Contraseña?</a>
-							</div>
-						</form>
+<section class="login_box_area section_gap">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="login_box_img">
+					<img class="img-fluid" src="img/login.jpg" alt="">
+					<div class="hover">
+						<h4>Nuevo en el Sitio?</h4>
+						<p>Regístrate para acceder a todas las funciones</p>
+						<a class="primary-btn" href="registration.html">Crea una cuenta</a>
 					</div>
 				</div>
 			</div>
+
+			<div class="col-lg-6">
+				<div class="login_form_inner">
+					<h3>Inicia Sesión</h3>
+
+					<form class="row login_form" id="loginForm">
+						
+						<div class="col-md-12 form-group">
+							<input type="email" class="form-control" id="email" placeholder="Correo">
+						</div>
+
+						<div class="col-md-12 form-group">
+							<input type="password" class="form-control" id="password" placeholder="Contraseña">
+						</div>
+
+						<div class="col-md-12 form-group">
+							<div class="creat_account">
+								<input type="checkbox" id="f-option2">
+								<label for="f-option2">Mantener sesión abierta</label>
+							</div>
+						</div>
+
+						<div class="col-md-12 form-group">
+							<button type="submit" class="primary-btn">Iniciar Sesión</button>
+							<a href="#">¿Olvidaste tu contraseña?</a>
+						</div>
+
+					</form>
+				</div>
+			</div>
+
 		</div>
-	</section>
-	<!--================End Login Box Area =================-->
+	</div>
+</section>
+<!--================End Login Box Area =================-->
+
+
+<script>
+document.getElementById("loginForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
+
+    try {
+        const response = await fetch("http://127.0.0.1:3000/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            // 🔹 Guardar solo la parte antes de @ en localStorage
+            const username = email.split("@")[0];
+            localStorage.setItem("usuarioNombre", username);
+
+            alert("Login exitoso");
+            window.location.href = "index.html"; // Redirige a la página principal
+        } else {
+            alert("Correo o contraseña incorrectos");
+        }
+
+    } catch (error) {
+        console.error(error);
+        alert("Error conectando con el servidor");
+    }
+});
+</script>
 
 	<!-- start footer Area -->
 	<footer class="footer-area section_gap">
